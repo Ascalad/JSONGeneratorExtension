@@ -222,10 +222,9 @@ async function downloadBinary(url: string, destination: string): Promise<void> {
 	});
 }
 
-async function spawnChildAnalytic() {
+async function spawnChildInstall() {
 	try {
-		await ensureCliAndReport(cliPath);
-		cp.spawn(cliPath, ['Analytic']);
+		cp.spawn(cliPath, ['Install']);
 	} catch (error) {
 		vscode.window.showErrorMessage(`Error execute the command: ${error}`);
 	}
@@ -242,7 +241,7 @@ async function ensureCliExists(cliPathParam: string): Promise<boolean> {
 			fs.mkdirSync(cliDir, { recursive: true });
 		}
 		await downloadBinary(downloadUrl, cliDir);
-		spawnChildAnalytic();
+		spawnChildInstall();
 		return true;
 	} catch (error) {
 		vscode.window.showErrorMessage(`Error CLI app exists: ${error}`);
